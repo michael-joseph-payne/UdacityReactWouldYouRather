@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class Login extends Component {
   componentDidMount() {
+    
   }
   
   handleSubmit(event) {
@@ -10,6 +12,8 @@ class Login extends Component {
   }
   
   render() {
+    const { users } = this.props;
+    
     return (
       <div>
         <div>
@@ -21,10 +25,11 @@ class Login extends Component {
       		<label>
       		  Sign In
       	      <select>
-      		    <option value="grapefruit">Grapefruit</option>
-      		    <option value="lime">Lime</option>
-      		    <option value="coconut">Coconut</option>
-      		    <option value="mango">Mango</option>
+				{Object.entries(users).map(([key, value]) => {
+      			  return (
+                    <option key={ value.id }>{ value.name }</option>
+                  )
+				})}
 			  </select>
       	      <input type="submit" value="Submit" />
       		</label>
@@ -35,4 +40,11 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  const { users } = state;
+  return {
+    users: users
+  }
+}
+
+export default connect(mapStateToProps)(Login);
