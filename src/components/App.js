@@ -7,11 +7,7 @@ import Dashboard from './Dashboard'
 
 class App extends Component {
   componentDidMount() {
-    const { authedUser } = this.props;
-    
-    if(!authedUser) {
-      this.props.dispatch(handleInitialData())
-    }
+    this.props.dispatch(handleInitialData())
   }
   
   render() {

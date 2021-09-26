@@ -45,6 +45,7 @@ class Login extends Component {
       		  Sign In
 			  <div>
       	        <select onChange={this.handleChange}>
+				  <option key={null} value={null}>Select</option>
 				  {Object.entries(users).map(([key, user]) => {
       			    return (
                       <option key={key} value={user.id}>{user.name}</option>

@@ -16,7 +16,7 @@ class Nav extends Component {
         <nav className='nav'>
           <ul>
       		<li>
-      		  {`Logged in as ${authedUser}`}
+      		  {`Hello, ${authedUser}`}
       		</li>
             <li>
                 <button onClick={ logout }>Logout</button>
