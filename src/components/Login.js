@@ -7,7 +7,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: null
+      userName: null
     };
     
     this.handleChange = this.handleChange.bind(this);
@@ -16,17 +16,17 @@ class Login extends Component {
   
   handleChange(event) {
     this.setState({
-      userId: event.target.value
+      userName: event.target.value
     });
   }
   
   handleSubmit(event) {
     event.preventDefault();
     
-    if(!this.state.userId) {
+    if(!this.state.userName) {
       alert('Please select a user!');
     } else {
-      this.props.dispatch(setAuthedUser(this.state.userId));
+      this.props.dispatch(setAuthedUser(this.state.userName));
     }
   }
   
@@ -40,15 +40,15 @@ class Login extends Component {
       	  <p>Please sign in to continue</p>
         </div>
         <div>
-      	  <form onSubmit={this.handleSubmit}>
+      	  <form onSubmit={ this.handleSubmit }>
       		<label>
       		  Sign In
 			  <div>
       	        <select onChange={this.handleChange}>
-				  <option key={null} value={null}>Select</option>
-				  {Object.entries(users).map(([key, user]) => {
+				  <option key={ null } value={ null }>Select</option>
+				  {Object.entries(users).map(([ key, user ]) => {
       			    return (
-                      <option key={key} value={user.id}>{user.name}</option>
+                      <option key={ key } value={ user.name }>{user.name}</option>
                     )
 				  })}
 			    </select>

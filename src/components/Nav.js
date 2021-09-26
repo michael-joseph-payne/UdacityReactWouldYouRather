@@ -4,26 +4,33 @@ import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
 
 class Nav extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.selectView(event.target.value);
+  }
+  
+  handleLogout = () => {
+    const { dispatch } = this.props;
+    dispatch(setAuthedUser(null));
+  }
+  
   render() {
-    const {dispatch, authedUser} = this.props;
-    
-    const logout = () => {
-      dispatch(setAuthedUser(null))
-    }
-    
+    const {authedUser} = this.props;
+
     return (
-      <div>
-        <nav className='nav'>
-          <ul>
-      		<li>
-      		  {`Hello, ${authedUser}`}
-      		</li>
-            <li>
-                <button onClick={ logout }>Logout</button>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <nav>
+        <button onClick={ this.handleSubmit } value='home'>Home</button>
+        <button onClick={ this.handleSubmit } value='newQuestion'>New Question</button>
+        <button onClick={ this.handleSubmit } value='leaderBoard'>Leader Board</button>
+      	{`Hello, ${ authedUser }`}
+        <button onClick={ this.handleLogout }>Logout</button>
+      </nav>
     );
   }
 }
