@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class QuestionThumbnail extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
   getUsers() {
     const { users } = this.props;
     
@@ -30,12 +36,24 @@ class QuestionThumbnail extends Component {
     return this.findUser(userId).name;
   }
   
+  handleSubmit = (fullQuestion) => (event) => {
+    event.preventDefault();
+    this.props.selectQuestion(fullQuestion, 'question');
+  }
+  
   render() {
-    console.log(this.props.question);
     const { author } = this.props.question;
     const userName = this.getUserName(author);
     const avatar = this.getAvatar(author);
     const optionOne = this.props.question.optionOne.text;
+    const optionTwo = this.props.question.optionTwo.text;
+    
+    const fullQuestion = {
+      userName,
+      avatar,
+      optionOne,
+      optionTwo
+    };
     
     return (
       <div>
@@ -47,7 +65,7 @@ class QuestionThumbnail extends Component {
 		  <div>
 		    <div>Would you rather</div>
 			<div>{ optionOne }</div>
-			<button>View Poll</button>
+			<button onClick={ this.handleSubmit(fullQuestion) }>View Poll</button>
 		  </div>
 	    </div>
 	  </div>
