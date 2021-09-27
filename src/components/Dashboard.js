@@ -12,6 +12,8 @@ class Dashboard extends Component {
     this.state = {
       view: 'home',
       question: null,
+      isAnswered: false,
+      authorData: null
     };
   }
   
@@ -21,9 +23,11 @@ class Dashboard extends Component {
     });
   }
   
-  selectQuestion = (selectedQuestion, view) => {
+  selectQuestion = (data, view, isAnswered) => {
     this.setState({
-      question: selectedQuestion
+      question: data.question,
+      isAnswered: isAnswered,
+      authorData: data.authorData
     }, this.selectView(view));
   }
   
@@ -34,7 +38,10 @@ class Dashboard extends Component {
       case 'newQuestion' :
         return <NewQuestion />
       case 'question' :
-        return <Question question={ this.state.question } />  
+        //console.log(this.state.authorData);
+        //console.log(this.state.question);
+        //console.log(this.state.isAnswered);
+        return <Question question={ this.state.question } isAnswered={ this.state.isAnswered } authorData={ this.state.authorData } />  
       default :
         return <QuestionThumbnailContainer selectView={ this.selectView }  selectQuestion={ this.selectQuestion } />
     }

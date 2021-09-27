@@ -82,10 +82,10 @@ class QuestionThumbnailContainer extends Component {
         <button onClick={ this.handleSubmit } value={ 'true' }>Answered Questions</button>
 		{this.state.answered ?
           questions.answered.map((question) => {
-            return <QuestionThumbnail key={ question.id } question={ question } selectView={ this.props.selectView } selectQuestion={ this.props.selectQuestion } />;
+            return <QuestionThumbnail key={ question.id } question={ question } selectView={ this.props.selectView } selectQuestion={ this.props.selectQuestion } isAnswered={ true } />;
           }) :
 		  questions.unanswered.map((question) => {
-            return <QuestionThumbnail key={ question.id } question={ question } selectView={ this.props.selectView } selectQuestion={ this.props.selectQuestion } />;
+            return <QuestionThumbnail key={ question.id } question={ question } selectView={ this.props.selectView } selectQuestion={ this.props.selectQuestion } isAnswered={ false } />;
           })
         }
       </div>

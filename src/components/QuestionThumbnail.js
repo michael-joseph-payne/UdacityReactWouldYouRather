@@ -8,64 +8,46 @@ class QuestionThumbnail extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
-  getUsers() {
-    const { users } = this.props;
+  createDataStructure() {
+    const {users, question } = this.props;
     
+    //Gets the users from the store and stores them in an array
     const userData = Object.entries(users).map(([ key, user ]) => {
       return user;
 	})
     
-    return userData;
-  }
-  
-  findUser(userId) {
-    const users = this.getUsers();
+    //Gets the user id of the author
+    const { author } = this.props.question;
     
-    const user = users.find((user) => {
-      return user.id === userId;
+    //Gets all of the author's data so we can use it later
+    const authorData = userData.find((user) => {
+      return user.id === author;
     });
     
-    return user;
+    return {
+      authorData,
+      question
+    }
   }
   
-  getAvatar(userId) {
-    return this.findUser(userId).avatarURL;
-  }
-  
-  getUserName(userId) {
-    return this.findUser(userId).name;
-  }
-  
-  handleSubmit = (fullQuestion) => (event) => {
+  handleSubmit = (data) => (event) => {
     event.preventDefault();
-    this.props.selectQuestion(fullQuestion, 'question');
+    this.props.selectQuestion(data, 'question', this.props.isAnswered);
   }
   
   render() {
-    const { author } = this.props.question;
-    const userName = this.getUserName(author);
-    const avatar = this.getAvatar(author);
-    const optionOne = this.props.question.optionOne.text;
-    const optionTwo = this.props.question.optionTwo.text;
-    
-    const fullQuestion = {
-      userName,
-      avatar,
-      optionOne,
-      optionTwo
-    };
-    
+    const data = this.createDataStructure();
     return (
       <div>
         <div>
-          <div>{ userName } asks</div>
+          <div>{ data.authorData.name } asks</div>
         </div>
 	    <div>
-		  <div>{ avatar }</div>
+		  <div>{ data.authorData.avatarURL }</div>
 		  <div>
 		    <div>Would you rather</div>
-			<div>{ optionOne }</div>
-			<button onClick={ this.handleSubmit(fullQuestion) }>View Poll</button>
+			<div>{ data.question.optionOne.text }</div>
+			<button onClick={ this.handleSubmit(data) }>View Poll</button>
 		  </div>
 	    </div>
 	  </div>
@@ -74,11 +56,9 @@ class QuestionThumbnail extends Component {
 }
 
 function mapStateToProps(state) {
-  const { users, authedUser, questions } = state;
+  const { users } = state;
   return {
-    users: users,
-    authedUser: authedUser,
-    questions: questions
+    users: users
   }
 }
 
