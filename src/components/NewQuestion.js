@@ -1,25 +1,21 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 class NewQuestion extends Component {
   render() {
-    //const { users, authedUser, questions } = this.props;
-    
     return (
       <div>
-        New Question
+        <div>Create New Question</div>
+        <div>Complete the question:</div>
+        <div>Would you rather {'...'}</div>
+		<input type="text" />
+		<div>OR</div>
+		<input type="text" />
+		<div>
+		  <button>Submit</button>
+		</div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { users, authedUser, questions } = state;
-  return {
-    users: users,
-    authedUser: authedUser,
-    questions: questions,
-  }
-}
-
-export default connect(mapStateToProps)(NewQuestion);
+export default NewQuestion;
