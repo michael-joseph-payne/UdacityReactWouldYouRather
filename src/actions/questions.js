@@ -3,6 +3,7 @@ import { linkUserQuestion, linkUserAnswer } from '../actions/users.js'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
+export const ADD_VOTE = 'ADD_VOTE'
 
 export function receiveQuestions (questions) {
   return {
@@ -15,6 +16,15 @@ export function addQuestion (question) {
   return {
     type: ADD_QUESTION,
     question,
+  }
+}
+
+export function addVote (answer, question, authorData) {
+  return {
+    type: ADD_VOTE,
+    answer,
+    question,
+    authorData
   }
 }
 
@@ -58,5 +68,6 @@ export function handleAnswerQuestion (answer, question) {
       answer: answer
     })
     .then(() => dispatch(linkUserAnswer(answer, question, authorData)))
+    .then(() => dispatch(addVote(answer, question, authorData)));
   }
 }

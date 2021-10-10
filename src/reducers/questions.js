@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTIONS, ADD_QUESTION } from '../actions/questions'
+import { RECEIVE_QUESTIONS, ADD_QUESTION, ADD_VOTE } from '../actions/questions'
 
 export default function questions (state = {}, action) {
   switch(action.type) {
@@ -12,6 +12,30 @@ export default function questions (state = {}, action) {
         ...state,
         [action.question.id]: action.question
       }
+    case ADD_VOTE :
+      let votedFor = {}
+      
+      if (action.answer === 'optionOne') {
+        votedFor = {
+          [action.question.id]: {
+            ...state[action.question.id].optionOne,
+            votes: state[action.question.id].optionOne.votes.concat(action.authorData.id)
+          }
+        }
+      } else {
+        votedFor = {
+          [action.question.id]: {
+            ...state[action.question.id].optionTwo,
+            votes: state[action.question.id].optionTwo.votes.concat(action.authorData.id)
+          }
+        }
+      }
+      
+      return {
+        ...state,
+        ...votedFor
+      }
+      
     default :
       return state
   }
