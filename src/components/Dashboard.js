@@ -38,7 +38,7 @@ class Dashboard extends Component {
       case 'newQuestion' :
         return <NewQuestion selectView={ this.selectView } />
       case 'question' :
-        return <Question question={ this.state.question } isAnswered={ this.state.isAnswered } authorData={ this.state.authorData } />  
+        return <Question selectView={ this.selectView } question={ this.state.question } isAnswered={ this.state.isAnswered } authorData={ this.state.authorData } />  
       default :
         return <QuestionThumbnailContainer selectView={ this.selectView }  selectQuestion={ this.selectQuestion } />
     }

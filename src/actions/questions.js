@@ -1,5 +1,5 @@
-import { _saveQuestion } from '../db/_DATA.js'
-import { linkUser } from '../actions/users.js'
+import { _saveQuestion, _saveQuestionAnswer } from '../db/_DATA.js'
+import { linkUserQuestion, linkUserAnswer } from '../actions/users.js'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
@@ -36,6 +36,27 @@ export function handleAddQuestion (optionOneText, optionTwoText) {
       author: authorData.id,
     })
       .then((question) => dispatch(addQuestion(question)))
-      .then((question) => dispatch(linkUser(question.question, authorData)))
+      .then((question) => dispatch(linkUserQuestion(question.question, authorData)))
+  }
+}
+
+export function handleAnswerQuestion (answer, question) {
+  return (dispatch, getState) => {
+    const { authedUser, users } = getState();
+    
+    const userData = Object.entries(users).map(([ key, user ]) => {
+      return user;
+	});
+    
+    const authorData = userData.find((user) => {
+      return user.name === authedUser;
+    });
+
+    return _saveQuestionAnswer ({
+      authedUser: authorData.id,
+      qid: question.id,
+      answer: answer
+    })
+    .then(() => dispatch(linkUserAnswer(answer, question, authorData)))
   }
 }
