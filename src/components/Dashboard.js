@@ -36,7 +36,7 @@ class Dashboard extends Component {
       case 'leaderBoard' :
         return <LeaderBoard />
       case 'newQuestion' :
-        return <NewQuestion />
+        return <NewQuestion selectView={ this.selectView } />
       case 'question' :
         return <Question question={ this.state.question } isAnswered={ this.state.isAnswered } authorData={ this.state.authorData } />  
       default :

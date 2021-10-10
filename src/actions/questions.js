@@ -1,4 +1,5 @@
 import { _saveQuestion } from '../db/_DATA.js'
+import { linkUser } from '../actions/users.js'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
@@ -35,5 +36,6 @@ export function handleAddQuestion (optionOneText, optionTwoText) {
       author: authorData.id,
     })
       .then((question) => dispatch(addQuestion(question)))
+      .then((question) => dispatch(linkUser(question.question, authorData)))
   }
 }

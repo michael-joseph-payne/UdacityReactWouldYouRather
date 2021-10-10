@@ -32,9 +32,10 @@ class NewQuestion extends Component {
     event.preventDefault();
     
     const { question1, question2 } = this.state;
-    const { dispatch } = this.props
+    const { dispatch } = this.props;
     
     dispatch(handleAddQuestion(question1, question2))
+      .then(this.props.selectView('home'))
   }
   
   render() {
