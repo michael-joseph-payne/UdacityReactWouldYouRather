@@ -18,14 +18,14 @@ export default function questions (state = {}, action) {
       if (action.answer === 'optionOne') {
         votedFor = {
           [action.question.id]: {
-            ...state[action.question.id].optionOne,
+            ...state[action.question.id],
             votes: state[action.question.id].optionOne.votes.concat(action.authorData.id)
           }
         }
       } else {
         votedFor = {
           [action.question.id]: {
-            ...state[action.question.id].optionTwo,
+            ...state[action.question.id],
             votes: state[action.question.id].optionTwo.votes.concat(action.authorData.id)
           }
         }
